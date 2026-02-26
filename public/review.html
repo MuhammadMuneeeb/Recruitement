@@ -1,0 +1,50 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DPL Interview Review</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero card">
+        <div>
+          <p class="eyebrow">Post Interview Analysis</p>
+          <h1>Interview Review</h1>
+          <p class="muted" id="meta"></p>
+        </div>
+        <div class="hero-right">
+          <span id="aiStatusBadge" class="pill status-pill pending">AI Brain: checking...</span>
+          <p id="aiStatusMeta" class="muted small">Model status loading</p>
+        </div>
+      </header>
+
+      <section class="card" style="margin-top: 14px;">
+        <h2>AI Decision Summary</h2>
+        <div class="grid-2">
+          <div class="metric-card">
+            <p class="muted small">Overall Score</p>
+            <h3 id="score">-</h3>
+          </div>
+          <div class="metric-card">
+            <p class="muted small">Recommendation</p>
+            <h3 id="rec">-</h3>
+          </div>
+        </div>
+        <h3 style="margin-top: 14px;">Rubric</h3>
+        <div id="rubric" class="pill-row"></div>
+        <h3 style="margin-top: 14px;">Strengths</h3>
+        <div id="strengths" class="pill-row"></div>
+        <h3 style="margin-top: 14px;">Risks</h3>
+        <div id="risks" class="pill-row"></div>
+      </section>
+
+      <section class="card" style="margin-top: 14px;">
+        <h2>Transcript</h2>
+        <pre id="transcript" class="transcript-box"></pre>
+      </section>
+    </div>
+    <script src="/review.js"></script>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Interview Room</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell stage-wrap">
+      <header class="hero card room-header">
+        <div>
+          <p class="eyebrow">DPL Candidate Room</p>
+          <h1>Live AI Interview</h1>
+          <p class="muted" id="sessionMeta"></p>
+          <p class="muted small" id="speechSupport"></p>
+        </div>
+        <div class="hero-right">
+          <span id="aiStatusBadge" class="pill status-pill pending">AI Brain: checking...</span>
+          <span id="flowStatus" class="pill">Session: waiting</span>
+          <span id="interviewerEmotion" class="pill">Emotion: calm</span>
+        </div>
+      </header>
+
+      <section class="card ai-stage">
+        <div class="stage-watermark">DPL</div>
+        <div class="stage-main">
+          <div class="ai-presence">
+            <div class="avatar-shell avatar-xl">
+              <div class="avatar-orb emotion-calm recruiter-photo-shell" id="interviewerOrb">
+                <div id="recruiter3d" class="recruiter-3d"></div>
+                <div class="three-fallback" aria-hidden="true">3D Interviewer</div>
+              </div>
+              <div class="avatar-ring"></div>
+            </div>
+            <h2 class="stage-line" id="interviewerState">Interviewer is preparing...</h2>
+            <p class="stage-subline" id="promptLine">The interviewer will greet you shortly.</p>
+          </div>
+
+          <aside class="candidate-pip card">
+            <h3>Candidate Checkpoint</h3>
+            <video id="preview" autoplay muted playsinline></video>
+            <div style="margin-top: 10px;">
+              <span id="camStatus" class="pill">Camera: pending</span>
+              <span id="micStatus" class="pill">Mic: pending</span>
+            </div>
+            <div class="row" style="margin-top: 10px;">
+              <button id="checkBtn" class="secondary">Run Checks</button>
+              <button id="submitBtn" disabled>Finish Interview</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="card transcript-panel">
+        <div class="row row-space">
+          <h2>Dialogue & Transcript</h2>
+          <p id="outMsg" class="muted"></p>
+        </div>
+        <label for="liveTranscript">Current spoken response</label>
+        <textarea id="liveTranscript" rows="4" readonly placeholder="Your speech appears here while you speak..."></textarea>
+        <div id="dialogueFeed" class="dialogue-feed"></div>
+      </section>
+    </div>
+    <script src="https://unpkg.com/three@0.161.0/build/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.161.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="/candidate.js"></script>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DPL Talent Console</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero card">
+        <div>
+          <p class="eyebrow">DPL Interview Intelligence</p>
+          <h1>Talent Screening Console</h1>
+          <p class="muted">Create interview links, monitor sessions, and review AI evaluations.</p>
+        </div>
+        <div class="hero-right">
+          <span id="aiStatusBadge" class="pill status-pill pending">AI Brain: checking...</span>
+          <p id="aiStatusMeta" class="muted small">Model status loading</p>
+        </div>
+      </header>
+
+      <section class="card" style="margin-top: 14px;">
+        <h2>Create Interview Session</h2>
+        <p class="muted">Share the generated candidate link. Camera and microphone checks will run automatically.</p>
+        <div class="grid-3">
+          <div>
+            <label for="candidateName">Candidate Name</label>
+            <input id="candidateName" placeholder="Jane Doe" />
+          </div>
+          <div>
+            <label for="candidateEmail">Candidate Email</label>
+            <input id="candidateEmail" placeholder="jane@example.com" />
+          </div>
+          <div>
+            <label for="roleTitle">Role Title</label>
+            <input id="roleTitle" placeholder="Organizational Development Lead" />
+          </div>
+        </div>
+        <div class="row">
+          <button id="createBtn">Generate Interview Link</button>
+          <p id="linkOut" class="muted output-link"></p>
+        </div>
+      </section>
+
+      <section class="card" style="margin-top: 14px;">
+        <div class="row row-space">
+          <h2>Live Interview Pipeline</h2>
+          <button id="refreshBtn" class="secondary">Refresh List</button>
+        </div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Candidate</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th>Review</th>
+              </tr>
+            </thead>
+            <tbody id="list"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+    <script src="/recruiter.js"></script>
+  </body>
+</html>
