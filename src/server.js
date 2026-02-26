@@ -409,6 +409,11 @@ app.get("/api/config/public", (_req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`MVP running on http://localhost:${port}`);
-});
+export default app;
+
+const isDirectRun = process.argv[1] && path.resolve(process.argv[1]) === __filename;
+if (isDirectRun) {
+  app.listen(port, () => {
+    console.log(`MVP running on http://localhost:${port}`);
+  });
+}

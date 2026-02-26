@@ -1,10 +1,25 @@
 import Database from "better-sqlite3";
 import path from "path";
 
-const dbPath = path.join(process.cwd(), "data.sqlite");
-const db = new Database(dbPath);
+function resolveDbPath() {
+  if (process.env.DB_PATH) return process.env.DB_PATH;
+  if (process.env.VERCEL) return path.join("/tmp", "data.sqlite");
+  return path.join(process.cwd(), "data.sqlite");
+}
 
-db.pragma("journal_mode = WAL");
+function createDatabase() {
+  const dbPath = resolveDbPath();
+  try {
+    const fileDb = new Database(dbPath);
+    if (!process.env.VERCEL) fileDb.pragma("journal_mode = WAL");
+    return fileDb;
+  } catch (_err) {
+    const memoryDb = new Database(":memory:");
+    return memoryDb;
+  }
+}
+
+const db = createDatabase();
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS interviews (
