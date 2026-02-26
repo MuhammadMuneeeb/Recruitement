@@ -106,12 +106,27 @@ async function createInterview() {
   await loadInterviews();
 }
 
+async function deleteInterview(id) {
+  const confirmDelete = window.confirm("Delete this interview entry permanently?");
+  if (!confirmDelete) return;
+
+  const res = await apiFetch(`/api/recruiter/interviews/${encodeURIComponent(id)}`, {
+    method: "DELETE"
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    window.alert(data.error || "Could not delete interview.");
+    return;
+  }
+  await loadInterviews();
+}
+
 async function loadInterviews() {
   const list = document.getElementById("list");
   const res = await apiFetch("/api/recruiter/interviews");
   const data = await res.json();
   if (res.status === 401) {
-    list.innerHTML = `<tr><td colspan="5" class="muted">Unauthorized. Reload with valid access key.</td></tr>`;
+    list.innerHTML = `<tr><td colspan="6" class="muted">Unauthorized. Reload with valid access key.</td></tr>`;
     return;
   }
   const items = data.interviews || [];
@@ -119,7 +134,7 @@ async function loadInterviews() {
   if (!items.length) {
     list.innerHTML = `
       <tr>
-        <td colspan="5" class="muted">No interviews yet.</td>
+        <td colspan="6" class="muted">No interviews yet.</td>
       </tr>
     `;
     return;
@@ -139,10 +154,19 @@ async function loadInterviews() {
           <td><span class="status ${it.status}">${it.status.replace("_", " ")}</span></td>
           <td class="small">${created}</td>
           <td><a href="${reviewUrl}${recruiterAccessKey ? `&accessKey=${encodeURIComponent(recruiterAccessKey)}` : ""}" target="_blank">Open Review</a></td>
+          <td><button type="button" class="danger small-btn delete-btn" data-id="${it.id}">Delete</button></td>
         </tr>
       `;
     })
     .join("");
+
+  list.querySelectorAll(".delete-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      deleteInterview(btn.dataset.id).catch((err) => {
+        window.alert(err?.message || "Could not delete interview.");
+      });
+    });
+  });
 }
 
 document.getElementById("createBtn").addEventListener("click", () => {

@@ -132,6 +132,10 @@ const getInterviewByIdStmt = db.prepare(`
   SELECT * FROM interviews WHERE id = ?
 `);
 
+const deleteInterviewByIdStmt = db.prepare(`
+  DELETE FROM interviews WHERE id = ?
+`);
+
 const listInterviewsStmt = db.prepare(`
   SELECT id, token, candidate_name, candidate_email, role_title, status, created_at, started_at, completed_at
   FROM interviews
@@ -400,6 +404,14 @@ app.get("/api/recruiter/interviews/:id", (req, res) => {
   const row = getInterviewByIdStmt.get(req.params.id);
   if (!row) return res.status(404).json({ error: "Interview not found" });
   return res.json({ interview: parseInterviewRow(row) });
+});
+
+app.delete("/api/recruiter/interviews/:id", (req, res) => {
+  if (!enforceRateLimit(req, res)) return;
+  if (!ensureRecruiterAccess(req, res)) return;
+  const result = deleteInterviewByIdStmt.run(req.params.id);
+  if (!result.changes) return res.status(404).json({ error: "Interview not found" });
+  return res.json({ ok: true });
 });
 
 app.get("/api/config/public", (_req, res) => {

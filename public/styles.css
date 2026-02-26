@@ -132,6 +132,15 @@ button.secondary {
   background: linear-gradient(120deg, #2a7f74 0%, #31a294 100%);
 }
 
+button.danger {
+  background: linear-gradient(120deg, #9b2d2d 0%, #bf3e3e 100%);
+}
+
+button.small-btn {
+  padding: 7px 10px;
+  font-size: 12px;
+}
+
 button:disabled {
   opacity: 0.65;
   cursor: not-allowed;
