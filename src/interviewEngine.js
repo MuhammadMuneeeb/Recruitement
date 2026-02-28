@@ -58,6 +58,34 @@ const ORG_DEV_QUESTIONS_UR = [
   "اس Organizational Development Lead رول میں آپ کے پہلے 90 دن کا پلان کیا ہوگا؟"
 ];
 
+const FRONTEND_COMMON_QUESTIONS_EN = [
+  "Please briefly introduce yourself and your frontend development experience.",
+  "Which frontend technologies are you currently working with?",
+  "What type of project are you currently working on (product, service, or freelance)?",
+  "What are your exact responsibilities in the current project?",
+  "What is the most challenging frontend issue you recently solved?",
+  "What is the difference between == and === in JavaScript?",
+  "What is a closure in JavaScript?",
+  "What is event bubbling?",
+  "If a feature breaks in production, what steps do you take?",
+  "Have you owned any feature end-to-end?",
+  "What is your current salary?",
+  "What is your expected salary?",
+  "What is your notice period?",
+  "Are you currently interviewing elsewhere or holding any offers?"
+];
+
+const FRONTEND_FRAMEWORK_QUESTIONS_EN = {
+  react: [
+    "What causes unnecessary re-renders in React?",
+    "How do you optimize performance in a React app?"
+  ],
+  angular: [
+    "What is change detection in Angular?",
+    "What is the difference between Observables and Promises?"
+  ]
+};
+
 function hasUrduScript(text) {
   return /[\u0600-\u06FF]/.test(text || "");
 }
@@ -77,7 +105,67 @@ function isOrgDevelopmentRole(roleTitle = "") {
   );
 }
 
-function bankFor(lang, roleTitle = "") {
+function isFrontendRole(roleTitle = "") {
+  const t = (roleTitle || "").toLowerCase();
+  return (
+    t.includes("frontend") ||
+    t.includes("front-end") ||
+    t.includes("front end") ||
+    t.includes("react") ||
+    t.includes("angular") ||
+    t.includes("ui engineer") ||
+    t.includes("web developer") ||
+    t.includes("javascript")
+  );
+}
+
+function detectFrontendFrameworkFromText(text = "") {
+  const t = String(text || "").toLowerCase();
+  if (/\bangular\b|rxjs|ngrx|typescript/.test(t)) return "angular";
+  if (/\breact\b|next\.?js|redux|jsx|hooks/.test(t)) return "react";
+  return null;
+}
+
+function detectFrontendFramework(conversation = [], candidateAnswer = "") {
+  const direct = detectFrontendFrameworkFromText(candidateAnswer);
+  if (direct) return direct;
+  for (let i = conversation.length - 1; i >= 0; i -= 1) {
+    const msg = conversation[i];
+    if (msg?.type !== "candidate") continue;
+    const found = detectFrontendFrameworkFromText(msg.text || "");
+    if (found) return found;
+  }
+  return "react";
+}
+
+function frontendQuestionBank(lang, framework = "react") {
+  const fw = framework === "angular" ? "angular" : "react";
+  const questions = [
+    FRONTEND_COMMON_QUESTIONS_EN[0],
+    FRONTEND_COMMON_QUESTIONS_EN[1],
+    FRONTEND_COMMON_QUESTIONS_EN[2],
+    FRONTEND_COMMON_QUESTIONS_EN[3],
+    FRONTEND_COMMON_QUESTIONS_EN[4],
+    FRONTEND_COMMON_QUESTIONS_EN[5],
+    FRONTEND_COMMON_QUESTIONS_EN[6],
+    FRONTEND_COMMON_QUESTIONS_EN[7],
+    FRONTEND_FRAMEWORK_QUESTIONS_EN[fw][0],
+    FRONTEND_FRAMEWORK_QUESTIONS_EN[fw][1],
+    FRONTEND_COMMON_QUESTIONS_EN[8],
+    FRONTEND_COMMON_QUESTIONS_EN[9],
+    FRONTEND_COMMON_QUESTIONS_EN[10],
+    FRONTEND_COMMON_QUESTIONS_EN[11],
+    FRONTEND_COMMON_QUESTIONS_EN[12],
+    FRONTEND_COMMON_QUESTIONS_EN[13]
+  ];
+  return questions;
+}
+
+function bankFor(lang, roleTitle = "", conversation = [], candidateAnswer = "") {
+  if (isFrontendRole(roleTitle)) {
+    const framework = detectFrontendFramework(conversation, candidateAnswer);
+    return frontendQuestionBank(lang, framework);
+  }
   const org = isOrgDevelopmentRole(roleTitle);
   if (org) return lang === "ur-PK" ? ORG_DEV_QUESTIONS_UR : ORG_DEV_QUESTIONS_EN;
   return lang === "ur-PK" ? MAIN_QUESTIONS_UR : MAIN_QUESTIONS_EN;
@@ -195,7 +283,7 @@ function fallbackNextTurn({ conversation, candidateAnswer, roleTitle, preferredL
     preferredLang === "ur-PK" || preferredLang === "en-PK" || preferredLang === "mix-PK"
       ? preferredLang
       : detectLang(candidateAnswer);
-  const bank = bankFor(lang, roleTitle);
+  const bank = bankFor(lang, roleTitle, conversation, candidateAnswer);
   const asked = countMainQuestionsAsked(conversation);
   const followups = followupsSinceLastMain(conversation);
   let depth = depthScore(candidateAnswer);
@@ -221,6 +309,15 @@ function fallbackNextTurn({ conversation, candidateAnswer, roleTitle, preferredL
           : lang === "mix-PK"
             ? "Thank you, interview complete ho gaya hai. براہِ کرم اپنا سیشن submit کر دیں۔"
             : "Thank you. The interview is complete. Please submit your session."
+    };
+  }
+
+  if (isFrontendRole(roleTitle)) {
+    return {
+      done: false,
+      kind: "question",
+      lang,
+      text: bank[asked]
     };
   }
 
@@ -304,14 +401,16 @@ function withTimeout(promise, timeoutMs, timeoutError = "Operation timed out") {
 }
 
 export async function nextTurnSmart(args) {
-  if (!isAiConfigured()) return fallbackNextTurn(args);
-
   const { conversation, candidateAnswer, roleTitle, preferredLang } = args;
+  const frontendRole = isFrontendRole(roleTitle);
+  const aiConfigured = frontendRole ? (isAiConfigured("gemini") || isAiConfigured()) : isAiConfigured();
+  if (!aiConfigured) return fallbackNextTurn(args);
+
   const lang =
     preferredLang === "ur-PK" || preferredLang === "en-PK" || preferredLang === "mix-PK"
       ? preferredLang
       : detectLang(candidateAnswer);
-  const bank = bankFor(lang, roleTitle);
+  const bank = bankFor(lang, roleTitle, conversation, candidateAnswer);
   const asked = countMainQuestionsAsked(conversation);
   const followups = followupsSinceLastMain(conversation);
   const depth = depthScore(candidateAnswer);
@@ -360,16 +459,19 @@ JSON schema:
     latestAnswerSnippet: answerSnippet,
     nextMainQuestion: bank[asked] || null,
     conversation: convo,
-    speedProfile: ACTIVE_SPEED_PROFILE
+    speedProfile: ACTIVE_SPEED_PROFILE,
+    interviewMode: frontendRole ? "frontend_structured" : "general"
   });
 
   try {
+    const providerOverride = frontendRole && isAiConfigured("gemini") ? "gemini" : undefined;
     const out = await withTimeout(
       chatJson({
         system,
         user,
         temperature: 0.08,
-        maxTokens: speed.maxTokens
+        maxTokens: speed.maxTokens,
+        providerOverride
       }),
       speed.llmTimeoutMs,
       "Interviewer generation timeout"
@@ -383,6 +485,14 @@ JSON schema:
 
     if (!validKind || !validLang || !text) return fallbackNextTurn(args);
     if (lastAi && seemsRepeatedPrompt(lastAi.text, text)) return fallbackNextTurn(args);
+    if (frontendRole && out.kind !== "question" && !done) {
+      return {
+        done: false,
+        kind: "question",
+        text: bank[asked],
+        lang: enforcedLang
+      };
+    }
     if (out.kind === "followup") {
       const contextWords = extractContextKeywords(candidateAnswer);
       const mentionsContext =

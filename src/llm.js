@@ -1,4 +1,6 @@
-const provider = process.env.AI_PROVIDER || (process.env.GEMINI_API_KEY ? "gemini" : "groq");
+function resolveProvider(providerOverride) {
+  return providerOverride || process.env.AI_PROVIDER || (process.env.GEMINI_API_KEY ? "gemini" : "groq");
+}
 
 function parseJsonText(raw) {
   const text = (raw || "").trim();
@@ -16,9 +18,11 @@ function parseJsonText(raw) {
   }
 }
 
-function getProviderConfig() {
+function getProviderConfig(providerOverride) {
+  const provider = resolveProvider(providerOverride);
   if (provider === "gemini") {
     return {
+      provider,
       url: "https://generativelanguage.googleapis.com/v1beta",
       key: process.env.GEMINI_API_KEY,
       model: process.env.AI_MODEL || "gemini-1.5-flash"
@@ -27,6 +31,7 @@ function getProviderConfig() {
 
   if (provider === "openrouter") {
     return {
+      provider,
       url: "https://openrouter.ai/api/v1/chat/completions",
       key: process.env.OPENROUTER_API_KEY,
       model: process.env.AI_MODEL || "openai/gpt-4o-mini"
@@ -34,31 +39,32 @@ function getProviderConfig() {
   }
 
   return {
+    provider,
     url: "https://api.groq.com/openai/v1/chat/completions",
     key: process.env.GROQ_API_KEY,
     model: process.env.AI_MODEL || "llama-3.1-8b-instant"
   };
 }
 
-export function isAiConfigured() {
-  const cfg = getProviderConfig();
+export function isAiConfigured(providerOverride) {
+  const cfg = getProviderConfig(providerOverride);
   return Boolean(cfg.key && cfg.model && cfg.url);
 }
 
 export function getAiRuntimeInfo() {
   const cfg = getProviderConfig();
   return {
-    provider,
+    provider: cfg.provider,
     model: cfg.model || "",
     configured: Boolean(cfg.key && cfg.model && cfg.url)
   };
 }
 
-export async function chatJson({ system, user, temperature = 0.2, maxTokens = 350 }) {
-  const cfg = getProviderConfig();
+export async function chatJson({ system, user, temperature = 0.2, maxTokens = 350, providerOverride }) {
+  const cfg = getProviderConfig(providerOverride);
   if (!cfg.key) throw new Error("AI key not configured");
 
-  if (provider === "gemini") {
+  if (cfg.provider === "gemini") {
     const endpoint =
       `${cfg.url}/models/${encodeURIComponent(cfg.model)}:generateContent?key=${encodeURIComponent(cfg.key)}`;
     const res = await fetch(endpoint, {
@@ -101,7 +107,7 @@ export async function chatJson({ system, user, temperature = 0.2, maxTokens = 35
     Authorization: `Bearer ${cfg.key}`,
     "Content-Type": "application/json"
   };
-  if (provider === "openrouter") {
+  if (cfg.provider === "openrouter") {
     headers["HTTP-Referer"] = process.env.OPENROUTER_SITE_URL || "http://localhost:3000";
     headers["X-Title"] = process.env.OPENROUTER_APP_NAME || "AI Recruitment MVP";
   }
