@@ -1,4 +1,4 @@
-import { chatJson, isAiConfigured } from "./llm.js";
+﻿import { chatJson, isAiConfigured } from "./llm.js";
 
 const SPEED_PROFILES = {
   balanced: {
@@ -35,11 +35,11 @@ const MAIN_QUESTIONS_EN = [
 ];
 
 const MAIN_QUESTIONS_UR = [
-  "اپنا تعارف کروائیں اور بتائیں کہ آپ اس رول میں دلچسپی کیوں رکھتے ہیں۔",
-  "کسی حالیہ پروجیکٹ کے بارے میں بتائیں جو آپ نے بنایا ہو۔ آپ کا کردار اور اس کا اثر کیا تھا؟",
-  "کوئی مشکل تکنیکی فیصلہ بیان کریں اور بتائیں کہ آپ نے کن ٹریڈ آفز کو مدنظر رکھا۔",
-  "ایسی صورتحال بتائیں جہاں آپ کی ٹیم ممبر سے اختلاف ہوا ہو، آپ نے اسے کیسے ہینڈل کیا؟",
-  "اگر آپ منتخب ہو جائیں تو پہلے 30 دن میں آپ کا پلان کیا ہوگا؟"
+  "Ø§Ù¾Ù†Ø§ ØªØ¹Ø§Ø±Ù Ú©Ø±ÙˆØ§Ø¦ÛŒÚº Ø§ÙˆØ± Ø¨ØªØ§Ø¦ÛŒÚº Ú©Û Ø¢Ù¾ Ø§Ø³ Ø±ÙˆÙ„ Ù…ÛŒÚº Ø¯Ù„Ú†Ø³Ù¾ÛŒ Ú©ÛŒÙˆÚº Ø±Ú©Ú¾ØªÛ’ ÛÛŒÚºÛ”",
+  "Ú©Ø³ÛŒ Ø­Ø§Ù„ÛŒÛ Ù¾Ø±ÙˆØ¬ÛŒÚ©Ù¹ Ú©Û’ Ø¨Ø§Ø±Û’ Ù…ÛŒÚº Ø¨ØªØ§Ø¦ÛŒÚº Ø¬Ùˆ Ø¢Ù¾ Ù†Û’ Ø¨Ù†Ø§ÛŒØ§ ÛÙˆÛ” Ø¢Ù¾ Ú©Ø§ Ú©Ø±Ø¯Ø§Ø± Ø§ÙˆØ± Ø§Ø³ Ú©Ø§ Ø§Ø«Ø± Ú©ÛŒØ§ ØªÚ¾Ø§ØŸ",
+  "Ú©ÙˆØ¦ÛŒ Ù…Ø´Ú©Ù„ ØªÚ©Ù†ÛŒÚ©ÛŒ ÙÛŒØµÙ„Û Ø¨ÛŒØ§Ù† Ú©Ø±ÛŒÚº Ø§ÙˆØ± Ø¨ØªØ§Ø¦ÛŒÚº Ú©Û Ø¢Ù¾ Ù†Û’ Ú©Ù† Ù¹Ø±ÛŒÚˆ Ø¢ÙØ² Ú©Ùˆ Ù…Ø¯Ù†Ø¸Ø± Ø±Ú©Ú¾Ø§Û”",
+  "Ø§ÛŒØ³ÛŒ ØµÙˆØ±ØªØ­Ø§Ù„ Ø¨ØªØ§Ø¦ÛŒÚº Ø¬ÛØ§Úº Ø¢Ù¾ Ú©ÛŒ Ù¹ÛŒÙ… Ù…Ù…Ø¨Ø± Ø³Û’ Ø§Ø®ØªÙ„Ø§Ù ÛÙˆØ§ ÛÙˆØŒ Ø¢Ù¾ Ù†Û’ Ø§Ø³Û’ Ú©ÛŒØ³Û’ ÛÛŒÙ†ÚˆÙ„ Ú©ÛŒØ§ØŸ",
+  "Ø§Ú¯Ø± Ø¢Ù¾ Ù…Ù†ØªØ®Ø¨ ÛÙˆ Ø¬Ø§Ø¦ÛŒÚº ØªÙˆ Ù¾ÛÙ„Û’ 30 Ø¯Ù† Ù…ÛŒÚº Ø¢Ù¾ Ú©Ø§ Ù¾Ù„Ø§Ù† Ú©ÛŒØ§ ÛÙˆÚ¯Ø§ØŸ"
 ];
 
 const ORG_DEV_QUESTIONS_EN = [
@@ -51,11 +51,11 @@ const ORG_DEV_QUESTIONS_EN = [
 ];
 
 const ORG_DEV_QUESTIONS_UR = [
-  "بطور Organizational Development Lead آپ organization-wide capability gaps کو کیسے assess کرتے ہیں؟",
-  "کوئی ایک organizational change initiative بیان کریں جو آپ نے lead کیا ہو اور اس کا measurable اثر کیا تھا؟",
-  "آپ leadership development کو business strategy کے ساتھ کیسے align کرتے ہیں؟",
-  "Senior stakeholders کی resistance to change کو آپ کیسے handle کرتے ہیں؟",
-  "اس Organizational Development Lead رول میں آپ کے پہلے 90 دن کا پلان کیا ہوگا؟"
+  "Ø¨Ø·ÙˆØ± Organizational Development Lead Ø¢Ù¾ organization-wide capability gaps Ú©Ùˆ Ú©ÛŒØ³Û’ assess Ú©Ø±ØªÛ’ ÛÛŒÚºØŸ",
+  "Ú©ÙˆØ¦ÛŒ Ø§ÛŒÚ© organizational change initiative Ø¨ÛŒØ§Ù† Ú©Ø±ÛŒÚº Ø¬Ùˆ Ø¢Ù¾ Ù†Û’ lead Ú©ÛŒØ§ ÛÙˆ Ø§ÙˆØ± Ø§Ø³ Ú©Ø§ measurable Ø§Ø«Ø± Ú©ÛŒØ§ ØªÚ¾Ø§ØŸ",
+  "Ø¢Ù¾ leadership development Ú©Ùˆ business strategy Ú©Û’ Ø³Ø§ØªÚ¾ Ú©ÛŒØ³Û’ align Ú©Ø±ØªÛ’ ÛÛŒÚºØŸ",
+  "Senior stakeholders Ú©ÛŒ resistance to change Ú©Ùˆ Ø¢Ù¾ Ú©ÛŒØ³Û’ handle Ú©Ø±ØªÛ’ ÛÛŒÚºØŸ",
+  "Ø§Ø³ Organizational Development Lead Ø±ÙˆÙ„ Ù…ÛŒÚº Ø¢Ù¾ Ú©Û’ Ù¾ÛÙ„Û’ 90 Ø¯Ù† Ú©Ø§ Ù¾Ù„Ø§Ù† Ú©ÛŒØ§ ÛÙˆÚ¯Ø§ØŸ"
 ];
 
 const FRONTEND_COMMON_QUESTIONS_EN = [
@@ -200,7 +200,7 @@ function depthScore(answerText) {
   if (words >= 25) score += 2;
   if (/\d/.test(text)) score += 1;
   if (/impact|result|tradeoff|metric|because|learned|improved|measured/.test(text)) score += 1;
-  if (/نتیجہ|اثر|پیمانہ|بہتری|سیکھا/.test(answerText || "")) score += 1;
+  if (/Ù†ØªÛŒØ¬Û|Ø§Ø«Ø±|Ù¾ÛŒÙ…Ø§Ù†Û|Ø¨ÛØªØ±ÛŒ|Ø³ÛŒÚ©Ú¾Ø§/.test(answerText || "")) score += 1;
   return score;
 }
 
@@ -251,8 +251,8 @@ function refineFollowupTone(text, lang) {
   if (!t) return t;
   if (lang === "ur-PK" || lang === "mix-PK") {
     return t
-      .replace(/Can you give one concrete example with a measurable outcome\?/gi, "اس کا quantified outcome کیا تھا؟")
-      .replace(/Please give one concrete example and the measurable result\./gi, "ایک specific example دیں اور quantified result بتائیں۔");
+      .replace(/Can you give one concrete example with a measurable outcome\?/gi, "Ø§Ø³ Ú©Ø§ quantified outcome Ú©ÛŒØ§ ØªÚ¾Ø§ØŸ")
+      .replace(/Please give one concrete example and the measurable result\./gi, "Ø§ÛŒÚ© specific example Ø¯ÛŒÚº Ø§ÙˆØ± quantified result Ø¨ØªØ§Ø¦ÛŒÚºÛ”");
   }
   return t
     .replace(/Can you give one concrete example with a measurable outcome\?/gi, "What was the quantified outcome, and how did you validate it?")
@@ -265,12 +265,12 @@ function fallbackFollowup(answerText, roleTitle, lang) {
 
   if (lang === "ur-PK") {
     if (/\d/.test(answerText || "")) {
-      return `آپ نے "${ack}" کا ذکر کیا، اس نتیجے کو آپ نے کس پیمانے پر measure کیا؟`;
+      return `Ø¢Ù¾ Ù†Û’ "${ack}" Ú©Ø§ Ø°Ú©Ø± Ú©ÛŒØ§ØŒ Ø§Ø³ Ù†ØªÛŒØ¬Û’ Ú©Ùˆ Ø¢Ù¾ Ù†Û’ Ú©Ø³ Ù¾ÛŒÙ…Ø§Ù†Û’ Ù¾Ø± measure Ú©ÛŒØ§ØŸ`;
     }
-    if (text.includes("ٹیم")) {
-      return `آپ نے "${ack}" کہا، اس میں بطور ${roleTitle} آپ کا ذاتی کردار کیا تھا؟`;
+    if (text.includes("Ù¹ÛŒÙ…")) {
+      return `Ø¢Ù¾ Ù†Û’ "${ack}" Ú©ÛØ§ØŒ Ø§Ø³ Ù…ÛŒÚº Ø¨Ø·ÙˆØ± ${roleTitle} Ø¢Ù¾ Ú©Ø§ Ø°Ø§ØªÛŒ Ú©Ø±Ø¯Ø§Ø± Ú©ÛŒØ§ ØªÚ¾Ø§ØŸ`;
     }
-    return `آپ نے "${ack}" بیان کیا، کیا آپ ایک مخصوص مثال اور measurable outcome دے سکتے ہیں؟`;
+    return `Ø¢Ù¾ Ù†Û’ "${ack}" Ø¨ÛŒØ§Ù† Ú©ÛŒØ§ØŒ Ú©ÛŒØ§ Ø¢Ù¾ Ø§ÛŒÚ© Ù…Ø®ØµÙˆØµ Ù…Ø«Ø§Ù„ Ø§ÙˆØ± measurable outcome Ø¯Û’ Ø³Ú©ØªÛ’ ÛÛŒÚºØŸ`;
   }
 
   if (/\d/.test(text)) return `You mentioned "${ack}". How did you measure that result in practice?`;
@@ -292,7 +292,7 @@ function fallbackNextTurn({ conversation, candidateAnswer, roleTitle, preferredL
   if (
     lastAi &&
     lastAi.kind === "followup" &&
-    /measure|metric|measured|پیمانہ|میژر/.test(lastAi.text || "") &&
+    /measure|metric|measured|Ù¾ÛŒÙ…Ø§Ù†Û|Ù…ÛŒÚ˜Ø±/.test(lastAi.text || "") &&
     answerSatisfiesMeasurementProbe(candidateAnswer)
   ) {
     depth = Math.max(depth, 3);
@@ -305,9 +305,9 @@ function fallbackNextTurn({ conversation, candidateAnswer, roleTitle, preferredL
       lang,
       text:
         lang === "ur-PK"
-          ? "شکریہ۔ انٹرویو مکمل ہو گیا ہے۔ براہِ کرم اپنا سیشن submit کر دیں۔"
+          ? "Ø´Ú©Ø±ÛŒÛÛ” Ø§Ù†Ù¹Ø±ÙˆÛŒÙˆ Ù…Ú©Ù…Ù„ ÛÙˆ Ú¯ÛŒØ§ ÛÛ’Û” Ø¨Ø±Ø§ÛÙ Ú©Ø±Ù… Ø§Ù¾Ù†Ø§ Ø³ÛŒØ´Ù† submit Ú©Ø± Ø¯ÛŒÚºÛ”"
           : lang === "mix-PK"
-            ? "Thank you, interview complete ho gaya hai. براہِ کرم اپنا سیشن submit کر دیں۔"
+            ? "Thank you, interview complete ho gaya hai. Ø¨Ø±Ø§ÛÙ Ú©Ø±Ù… Ø§Ù¾Ù†Ø§ Ø³ÛŒØ´Ù† submit Ú©Ø± Ø¯ÛŒÚºÛ”"
             : "Thank you. The interview is complete. Please submit your session."
     };
   }
@@ -359,11 +359,11 @@ export function openingPromptWithLang(candidateName, roleTitle, preferredLang = 
     return {
       greeting:
         `${candidateName}, welcome to your interview. ` +
-        `آپ کا ${roleTitle} رول کے لیے ابتدائی انٹرویو شروع ہو رہا ہے۔`,
+        `Ø¢Ù¾ Ú©Ø§ ${roleTitle} Ø±ÙˆÙ„ Ú©Û’ Ù„ÛŒÛ’ Ø§Ø¨ØªØ¯Ø§Ø¦ÛŒ Ø§Ù†Ù¹Ø±ÙˆÛŒÙˆ Ø´Ø±ÙˆØ¹ ÛÙˆ Ø±ÛØ§ ÛÛ’Û”`,
       question:
         isOrgDevelopmentRole(roleTitle)
-          ? "As Organizational Development Lead, capability gaps آپ کیسے assess کرتے ہیں؟"
-          : "Please introduce yourself briefly, اور بتائیں کہ آپ اس رول میں دلچسپی کیوں رکھتے ہیں۔",
+          ? "As Organizational Development Lead, capability gaps Ø¢Ù¾ Ú©ÛŒØ³Û’ assess Ú©Ø±ØªÛ’ ÛÛŒÚºØŸ"
+          : "Please introduce yourself briefly, Ø§ÙˆØ± Ø¨ØªØ§Ø¦ÛŒÚº Ú©Û Ø¢Ù¾ Ø§Ø³ Ø±ÙˆÙ„ Ù…ÛŒÚº Ø¯Ù„Ú†Ø³Ù¾ÛŒ Ú©ÛŒÙˆÚº Ø±Ú©Ú¾ØªÛ’ ÛÛŒÚºÛ”",
       lang: "mix-PK"
     };
   }
@@ -371,9 +371,9 @@ export function openingPromptWithLang(candidateName, roleTitle, preferredLang = 
   if (preferredLang === "ur-PK") {
     return {
       greeting:
-        `${candidateName} صاحب/صاحبہ، خوش آمدید۔ ` +
-        `${roleTitle} رول کے ابتدائی انٹرویو میں آپ کا استقبال ہے۔ ` +
-        "میں آپ سے پروفیشنل انداز میں سوالات کروں گا۔",
+        `${candidateName} ØµØ§Ø­Ø¨/ØµØ§Ø­Ø¨ÛØŒ Ø®ÙˆØ´ Ø¢Ù…Ø¯ÛŒØ¯Û” ` +
+        `${roleTitle} Ø±ÙˆÙ„ Ú©Û’ Ø§Ø¨ØªØ¯Ø§Ø¦ÛŒ Ø§Ù†Ù¹Ø±ÙˆÛŒÙˆ Ù…ÛŒÚº Ø¢Ù¾ Ú©Ø§ Ø§Ø³ØªÙ‚Ø¨Ø§Ù„ ÛÛ’Û” ` +
+        "Ù…ÛŒÚº Ø¢Ù¾ Ø³Û’ Ù¾Ø±ÙˆÙÛŒØ´Ù†Ù„ Ø§Ù†Ø¯Ø§Ø² Ù…ÛŒÚº Ø³ÙˆØ§Ù„Ø§Øª Ú©Ø±ÙˆÚº Ú¯Ø§Û”",
       question: firstUr,
       lang: "ur-PK"
     };
@@ -403,8 +403,9 @@ function withTimeout(promise, timeoutMs, timeoutError = "Operation timed out") {
 export async function nextTurnSmart(args) {
   const { conversation, candidateAnswer, roleTitle, preferredLang } = args;
   const frontendRole = isFrontendRole(roleTitle);
-  const aiConfigured = frontendRole ? (isAiConfigured("gemini") || isAiConfigured()) : isAiConfigured();
-  if (!aiConfigured) return fallbackNextTurn(args);
+  if (!isAiConfigured("gemini")) {
+    throw new Error("Gemini is required for interview generation. Set GEMINI_API_KEY.");
+  }
 
   const lang =
     preferredLang === "ur-PK" || preferredLang === "en-PK" || preferredLang === "mix-PK"
@@ -417,7 +418,19 @@ export async function nextTurnSmart(args) {
   const lastAi = lastAiMessage(conversation);
   const answerSnippet = snippet(candidateAnswer);
 
-  if (asked >= bank.length) return fallbackNextTurn(args);
+  if (asked >= bank.length) {
+    return {
+      done: true,
+      kind: "closing",
+      lang,
+      text:
+        lang === "ur-PK"
+          ? "Ø´Ú©Ø±ÛŒÛÛ” Ø§Ù†Ù¹Ø±ÙˆÛŒÙˆ Ù…Ú©Ù…Ù„ ÛÙˆ Ú¯ÛŒØ§ ÛÛ’Û” Ø¨Ø±Ø§ÛÙ Ú©Ø±Ù… Ø§Ù¾Ù†Ø§ Ø³ÛŒØ´Ù† submit Ú©Ø± Ø¯ÛŒÚºÛ”"
+          : lang === "mix-PK"
+            ? "Thank you, interview complete ho gaya hai. Ø¨Ø±Ø§ÛÙ Ú©Ø±Ù… Ø§Ù¾Ù†Ø§ Ø³ÛŒØ´Ù† submit Ú©Ø± Ø¯ÛŒÚºÛ”"
+            : "Thank you. The interview is complete. Please submit your session."
+    };
+  }
 
   const speed = activeSpeed();
   const convo = (conversation || []).slice(-speed.contextTurns).map((m) => ({
@@ -463,59 +476,59 @@ JSON schema:
     interviewMode: frontendRole ? "frontend_structured" : "general"
   });
 
-  try {
-    const providerOverride = frontendRole && isAiConfigured("gemini") ? "gemini" : undefined;
-    const out = await withTimeout(
-      chatJson({
-        system,
-        user,
-        temperature: 0.08,
-        maxTokens: speed.maxTokens,
-        providerOverride
-      }),
-      speed.llmTimeoutMs,
-      "Interviewer generation timeout"
-    );
+  const out = await withTimeout(
+    chatJson({
+      system,
+      user,
+      temperature: 0.08,
+      maxTokens: speed.maxTokens,
+      providerOverride: "gemini"
+    }),
+    speed.llmTimeoutMs,
+    "Interviewer generation timeout"
+  );
 
-    const validKind = out?.kind === "question" || out?.kind === "followup" || out?.kind === "closing";
-    const validLang = out?.lang === "en-PK" || out?.lang === "ur-PK" || out?.lang === "mix-PK";
-    const text = typeof out?.text === "string" ? out.text.trim() : "";
-    const done = Boolean(out?.done);
-    const enforcedLang = lang === "mix-PK" ? "mix-PK" : out?.lang;
+  const validKind = out?.kind === "question" || out?.kind === "followup" || out?.kind === "closing";
+  const validLang = out?.lang === "en-PK" || out?.lang === "ur-PK" || out?.lang === "mix-PK";
+  const text = typeof out?.text === "string" ? out.text.trim() : "";
+  const done = Boolean(out?.done);
+  const enforcedLang = lang === "mix-PK" ? "mix-PK" : out?.lang;
 
-    if (!validKind || !validLang || !text) return fallbackNextTurn(args);
-    if (lastAi && seemsRepeatedPrompt(lastAi.text, text)) return fallbackNextTurn(args);
-    if (frontendRole && out.kind !== "question" && !done) {
-      return {
-        done: false,
-        kind: "question",
-        text: bank[asked],
-        lang: enforcedLang
-      };
-    }
-    if (out.kind === "followup") {
-      const contextWords = extractContextKeywords(candidateAnswer);
-      const mentionsContext =
-        contextWords.some((w) => text.toLowerCase().includes(w)) ||
-        text.includes("You mentioned") ||
-        text.includes("آپ نے");
-      if (!mentionsContext || isGenericFollowup(text)) {
-        return fallbackNextTurn(args);
-      }
-    }
+  if (!validKind || !validLang || !text) {
+    throw new Error("Gemini returned an invalid interview turn payload.");
+  }
+  if (lastAi && seemsRepeatedPrompt(lastAi.text, text)) {
+    throw new Error("Gemini repeated a previous prompt.");
+  }
+  if (frontendRole && out.kind !== "question" && !done) {
     return {
-      done,
-      kind: out.kind,
-      text: out.kind === "followup" ? refineFollowupTone(text, enforcedLang) : text,
+      done: false,
+      kind: "question",
+      text: bank[asked],
       lang: enforcedLang
     };
-  } catch (_err) {
-    return fallbackNextTurn(args);
   }
-}
+  if (out.kind === "followup") {
+    const contextWords = extractContextKeywords(candidateAnswer);
+    const mentionsContext =
+      contextWords.some((w) => text.toLowerCase().includes(w)) ||
+      text.includes("You mentioned") ||
+      text.includes("Ø¢Ù¾ Ù†Û’");
+    if (!mentionsContext || isGenericFollowup(text)) {
+      throw new Error("Gemini returned a low-context follow-up.");
+    }
+  }
 
+  return {
+    done,
+    kind: out.kind,
+    text: out.kind === "followup" ? refineFollowupTone(text, enforcedLang) : text,
+    lang: enforcedLang
+  };
+}
 export function buildTranscriptFromConversation(conversation) {
   return (conversation || [])
     .map((e) => `${e.type === "ai" ? "Interviewer" : "Candidate"}: ${e.text}`)
     .join("\n");
 }
+

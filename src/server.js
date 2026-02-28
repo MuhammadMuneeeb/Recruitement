@@ -356,7 +356,10 @@ app.post("/api/interviews/:token/respond", async (req, res) => {
       lang: turn.lang
     });
   } catch (err) {
-    return res.status(500).json({ error: err.message || "Could not process interview response" });
+    return res.status(500).json({
+      error: err.message || "Could not process interview response",
+      hint: "Gemini is required for interview generation. Configure GEMINI_API_KEY."
+    });
   }
 });
 
